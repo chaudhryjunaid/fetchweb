@@ -32,7 +32,7 @@ exports.titleViaCallback = function(req, res) {
                 return callback("<li>"+address+" - HTTP Status "+response.statusCode+" received</li>");
             }
 
-            var title = $("title",body).html();
+            var title = $("head title",body).html();
             callback("<li>"+title+"</li>");
         });
     }
@@ -71,7 +71,7 @@ exports.titleViaAsync = function(req, res) {
                 return callback(null, "<li>"+address+" - HTTP Status "+response.statusCode+" received</li>");
             }
 
-            var title = $("title",body).html();
+            var title = $("head title",body).html();
             callback(null, "<li>"+title+"</li>");
         });
     }
@@ -99,7 +99,7 @@ exports.titleViaPromises = function(req, res) {
     function getAddressListItem(address){
         return rp(address)
             .then(function (body) {
-                var title = $("title",body).html();
+                var title = $("head title",body).html();
                 return "<li>"+title+"</li>";
             })
             .catch(function (error) {
