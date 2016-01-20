@@ -4,6 +4,8 @@ var _ = require('lodash');
 var request = require('request');
 var $ = require("cheerio");
 var async = require('async');
+var Promise = require('bluebird');
+var rp = require('request-promise');
 
 var winston = require('../config/winston');
 
@@ -83,3 +85,42 @@ exports.titleViaAsync = function(req, res) {
 
 };
 
+exports.titleViaPromises = function(req, res) {
+    var addressList = req.query.address;
+
+    if (!addressList){
+        return res.send(preamble+"<li>You did not provide any addresses.</li>"+postscript);
+    }
+
+    if(!_.isArray(addressList)){
+        addressList = [addressList];
+    }
+
+    function getAddressListItem(address){
+        return rp(address)
+            .then(function (body) {
+                var title = $("title",body).html();
+                return "<li>"+title+"</li>";
+            })
+            .catch(function (error) {
+                return "<li>"+address+" - "+error.message+"</li>";
+            });
+    }
+
+    function sendResultDoc(err,responseList){
+        winston.info(responseList);
+        res.send(preamble+responseList.join('')+postscript);
+    }
+
+    var addressPromises = _.map(addressList, function(address){
+        return getAddressListItem(address);
+    });
+
+    Promise.all(addressPromises).then(function(responseList){
+        winston.info(responseList);
+        res.send(preamble+responseList.join('')+postscript);
+    }).catch(function(err){
+        return res.send(preamble+"<li>Unexpected Error.</li>"+postscript);
+    });
+
+};
