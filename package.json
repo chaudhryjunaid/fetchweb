@@ -13,6 +13,7 @@
   "author": "Chaudhry Junaid Anwar",
   "license": "MIT",
   "dependencies": {
+    "async": "^1.5.2",
     "body-parser": "^1.14.2",
     "cheerio": "^0.19.0",
     "compression": "^1.6.1",

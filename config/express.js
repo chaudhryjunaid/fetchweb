@@ -33,6 +33,7 @@ module.exports = function(app) {
 
     // ROUTES
     app.get('/callback/I/want/title',title.titleViaCallback);
+    app.get('/async/I/want/title',title.titleViaAsync);
 
     app.use('*',function(req, res){
         res.status(404).send('404');
