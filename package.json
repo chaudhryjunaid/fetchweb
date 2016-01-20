@@ -1,0 +1,22 @@
+{
+  "name": "fetchweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "web",
+    "titles"
+  ],
+  "author": "Chaudhry Junaid Anwar",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.1",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "winston": "^2.1.1"
+  }
+}
