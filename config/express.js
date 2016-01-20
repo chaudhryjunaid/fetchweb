@@ -35,6 +35,7 @@ module.exports = function(app) {
     app.get('/callback/I/want/title',title.titleViaCallback);
     app.get('/async/I/want/title',title.titleViaAsync);
     app.get('/promise/I/want/title',title.titleViaPromises);
+    app.get('/I/want/title',title.titleViaPromises); // default route
 
     app.use('*',function(req, res){
         res.status(404).send('404');
